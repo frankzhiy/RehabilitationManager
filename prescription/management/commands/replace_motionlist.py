@@ -1,3 +1,4 @@
+
 import pandas as pd
 from django.core.management.base import BaseCommand
 from prescription.models import MotionList
@@ -6,13 +7,13 @@ class Command(BaseCommand):
     help = 'Replace MotionList table content with data from motionlist.xlsx'
 
     def handle(self, *args, **kwargs):
-        # 读取表格内容
+        # Read the Excel file
         df = pd.read_excel('motionlist.xlsx')
 
-        # 清空现有数据表
+        # Clear existing data in the MotionList table
         MotionList.objects.all().delete()
 
-        # 插入新数据
+        # Insert new data
         for _, row in df.iterrows():
             MotionList.objects.create(
                 action_id=row['action_id'],
@@ -29,7 +30,7 @@ class Command(BaseCommand):
                 object=row['object'],
                 applicability=row['applicability'],
                 purpose=row['purpose'],
-                details=row['details']
+                details=row['details']  # Directly assign the value
             )
 
         self.stdout.write(self.style.SUCCESS('Successfully replaced MotionList table content'))

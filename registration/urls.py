@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register, login, register_doctor, login_doctor, get_unverified_users_by_doctor, verify_user, get_verified_users_by_doctor,get_user_info,get_user_names_by_doctor,get_user_info_by_name_and_doctor
+from .views import register, login, register_doctor, login_doctor, get_unverified_users_by_doctor, verify_user, get_verified_users_by_doctor,get_user_info,get_user_names_by_doctor,get_user_info_by_name_and_doctor,get_wechat_steps
 
 urlpatterns = [
     path('register/', register, name='register'),  # 处理注册请求的 URL
@@ -11,5 +11,6 @@ urlpatterns = [
     path('verify_user/', verify_user, name='verify_user'),
     path('get_user_info/', get_user_info, name='get_user_info'),
     path('get_user_names_by_doctor/', get_user_names_by_doctor, name='get_user_names_by_doctor'),
-    path('get_user_info_by_name_and_doctor/', get_user_info_by_name_and_doctor, name='get_user_info_by_name_and_doctor')
+    path('get_user_info_by_name_and_doctor/', get_user_info_by_name_and_doctor, name='get_user_info_by_name_and_doctor'),
+    path('get_wechat_steps/', get_wechat_steps, name='get_wechat_steps')
 ]

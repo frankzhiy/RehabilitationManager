@@ -1,24 +1,42 @@
 amqp==5.3.1
-asgiref @ file:///Users/cbousseau/work/recipes/ci_py311/asgiref_1677957028708/work
+asgiref==3.8.1
 billiard==4.2.1
 celery==5.4.0
+certifi==2025.1.31
+charset-normalizer==3.4.1
 click==8.1.7
 click-didyoumean==0.3.1
 click-plugins==1.1.1
 click-repl==0.3.0
 cron-descriptor==1.4.5
-Django @ file:///Users/cbousseau/work/recipes/ci_py311/django_1677970851911/work
+Django==5.2
 django-celery-beat==2.7.0
+django-rest-framework==0.1.0
 django-timezone-field==7.0
+djangorestframework==3.16.0
+et_xmlfile==2.0.0
+gunicorn==23.0.0
+idna==3.10
 kombu==5.4.2
-mysqlclient @ file:///Users/runner/miniforge3/conda-bld/mysqlclient_1731700369039/work
+mysqlclient
+numpy==2.2.3
+openpyxl==3.1.5
+optionaldict==0.1.2
+packaging==24.2
+pandas==2.2.3
 prompt_toolkit==3.0.48
+pycryptodome==3.22.0
+pydub==0.25.1
 python-crontab==3.2.0
 python-dateutil==2.9.0.post0
 pytz==2024.2
 redis==5.2.0
+requests==2.32.3
 six==1.16.0
-sqlparse @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_16ptvrhamb/croot/sqlparse_1690901943673/work
+sqlparse
 tzdata==2024.2
+urllib3==2.3.0
 vine==5.1.0
 wcwidth==0.2.13
+wechatpy==1.8.18
+xmltodict==0.14.2

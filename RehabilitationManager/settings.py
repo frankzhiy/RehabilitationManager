@@ -97,10 +97,16 @@ DATABASES = {
         # "NAME": BASE_DIR / "db.sqlite3",
         "ENGINE": "django.db.backends.mysql",
         "NAME": "srrCOPD",
-        "USER": "root",
-        "PASSWORD": "rootdatabase",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
+        # 服务器
+        'USER': 'zjubj',
+        'PASSWORD': 'Data@base0',
+        'HOST': '8.130.102.191',  # 如果是 Docker Compose，使用服务名
+        'PORT': '3306',
+        # 本地
+        # "USER": "root",
+        # "PASSWORD": "rootdatabase",
+        # "HOST": "127.0.0.1",
+        # "PORT": "3306",
 
     }
 }
@@ -224,7 +230,13 @@ from celery.schedules import crontab
 CELERY_BEAT_SCHEDULE = {
     'reset_patient_followup_status': {
         'task': 'followUp.tasks.reset_patient_followup_status',
-        # 'schedule': crontab(hour=7, minute=0),
-        'schedule': crontab(minute='*/1'),  # 每分钟执行一次
+        'schedule': crontab(hour=7, minute=0),
+        # 'schedule': crontab(minute='*/1'),  # 每分钟执行一次
     },
 }
+
+WECHAT_APPID = 'wx0bb20ee2f1c7d370'
+WECHAT_SECRET = 'd984c3eec929e302d12df461a13030c6'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

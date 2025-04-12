@@ -21,7 +21,6 @@ def upload_medication_record(request):
                 medicinesProfessionalName=data.get('medicinesProfessionalName'),
                 medicinesFullDateTime=data.get('medicinesFullDateTime'),
             )
-            print(record)
             record.save()
 
             # 返回成功响应

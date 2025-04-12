@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import upload_adl, upload_cat, upload_mmrc, upload_ccq, get_adl_by_doctor, get_cat_by_doctor, get_mmrc_by_doctor, get_ccq_by_doctor
+from .views import upload_adl, upload_cat, upload_mmrc, upload_ccq, get_adl_by_doctor, get_cat_by_doctor, get_mmrc_by_doctor, get_ccq_by_doctor, get_scores_by_patient
 
 urlpatterns = [
     path('upload_adl/', upload_adl, name='upload_adl'),
@@ -10,5 +10,5 @@ urlpatterns = [
     path('get_cat_by_doctor/', get_cat_by_doctor, name='get_cat_by_doctor'),
     path('get_mmrc_by_doctor/', get_mmrc_by_doctor, name='get_mmrc_by_doctor'),
     path('get_ccq_by_doctor/', get_ccq_by_doctor, name='get_ccq_by_doctor'),
-
+    path('get_scores_by_patient/', get_scores_by_patient, name='get_scores_by_patient'),
 ]

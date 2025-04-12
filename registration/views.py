@@ -4,6 +4,10 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password
 import json
 from .models import UserProfile, DoctorProfile, PatientPrescription, PatientFollowUp
+import requests
+from django.conf import settings
+from Crypto.Cipher import AES
+import base64
 
 
 @csrf_exempt
@@ -50,10 +54,26 @@ def register(request):
         data = json.loads(request.body)
         id_card = data['IDcard']
         phone = data['phone']
+        code = data.get('code')  # 获取前端传递的 code
 
         # Check if a user with the same ID card or phone already exists
         if UserProfile.objects.filter(id_card=id_card).exists() or UserProfile.objects.filter(phone=phone).exists():
             return JsonResponse({'status': 'error', 'message': '用户已经注册'}, status=400)
+
+        # 调用微信接口获取 openid 和 unionid
+        appid = settings.WECHAT_APPID
+        secret = settings.WECHAT_SECRET
+
+        wx_url = f"https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={code}&grant_type=authorization_code"
+        response = requests.get(wx_url)
+        wx_data = response.json()
+        if 'openid' not in wx_data:
+            return JsonResponse({'status': 'error', 'message': '微信认证失败'}, status=400)
+
+        openid = wx_data['openid']
+        unionid = wx_data.get('unionid', None)
+
+
         user = UserProfile(
             id_card=data['IDcard'],
             name=data['name'],
@@ -70,9 +90,13 @@ def register(request):
             doctor=data['doctor'],
             diseases=data['diseases'],
             password=data['password'],
-            is_verified=False  # 默认未审核
+            is_verified=False,  # 默认未审核
+            openid=openid,
+            unionid=unionid
         )
         user.save()
+
+        # 创建处方记录
         PatientPrescription.objects.create(
             doctor=data['doctor'],
             id_card=data['IDcard'],
@@ -94,6 +118,7 @@ def register(request):
             isActive=False
         )
 
+        # 创建随访记录
         PatientFollowUp.objects.create(
             doctor=data['doctor'],
             id_card=data['IDcard'],
@@ -247,40 +272,6 @@ def get_verified_users_by_doctor(request):
         })
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-# @csrf_exempt
-# def get_verified_users_by_doctor(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         doctor_name = data.get('doctor')
-#
-#         if not doctor_name:
-#             return JsonResponse({'status': 'error', 'message': 'Doctor name is required'}, status=400)
-#
-#         unverified_users = UserProfile.objects.filter(doctor=doctor_name, is_verified=True)
-#         users_info = [
-#             {
-#                 'id_card': user.id_card,
-#                 'name': user.name,
-#                 'sex': user.sex,
-#                 'birth': user.birth,
-#                 'phone': user.phone,
-#                 'education': user.education,
-#                 'marital_status': user.marital_status,
-#                 'nation': user.nation,
-#                 'occupation': user.occupation,
-#                 'height': user.height,
-#                 'weight': user.weight,
-#                 'waistline': user.waistline,
-#                 'diseases': user.diseases,
-#                 'doctor': user.doctor,
-#                 'is_verified': user.is_verified,
-#             }
-#             for user in unverified_users
-#         ]
-#
-#         return JsonResponse({'status': 'success', 'users': users_info})
-#
-#     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 @csrf_exempt
 def verify_user(request):
@@ -324,85 +315,6 @@ def verify_user(request):
         return JsonResponse({'status': 'success', 'message': 'User, prescription, and follow-ups verified successfully'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-# def verify_user(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         id_card = data.get('id_card')
-#         phone = data.get('phone')
-#         verified = data.get('verified')
-#
-#         # Check for missing required fields
-#         if not id_card or not phone or verified is None:
-#             return JsonResponse({'status': 'error', 'message': 'Missing required fields'}, status=400)
-#
-#         try:
-#             # Get the UserProfile instance
-#             user = UserProfile.objects.get(id_card=id_card, phone=phone)
-#         except UserProfile.DoesNotExist:
-#             return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
-#
-#         if verified:
-#             # Update the is_verified field in UserProfile
-#             user.is_verified = True
-#             user.save()
-#
-#             # Update the is_verified field in PatientPrescription for the same user
-#             try:
-#                 prescription = PatientPrescription.objects.get(id_card=id_card, phone=phone)
-#                 prescription.is_verified = True
-#                 prescription.save()
-#             except PatientPrescription.DoesNotExist:
-#                 return JsonResponse({'status': 'error', 'message': 'Prescription record not found'}, status=404)
-#
-#             # Update the is_verified field in PatientFollowUp for the same user
-#             try:
-#                 follow_up = PatientFollowUp.objects.get(id_card=id_card, phone=phone)
-#                 follow_up.is_verified = True
-#                 follow_up.save()
-#             except PatientFollowUp.DoesNotExist:
-#                 return JsonResponse({'status': 'error', 'message': 'Follow-up record not found'}, status=404)
-#             return JsonResponse({'status': 'success', 'message': 'User, prescription, and follow-ups verified successfully'})
-#         else:
-#             return JsonResponse({'status': 'error', 'message': 'Invalid verification status'}, status=400)
-#
-#     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-# @csrf_exempt
-# def verify_user(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         id_card = data.get('id_card')
-#         phone = data.get('phone')
-#         verified = data.get('verified')
-#
-#         # Check for missing required fields
-#         if not id_card or not phone or verified is None:
-#             return JsonResponse({'status': 'error', 'message': 'Missing required fields'}, status=400)
-#
-#         try:
-#             # Get the UserProfile instance
-#             user = UserProfile.objects.get(id_card=id_card, phone=phone)
-#         except UserProfile.DoesNotExist:
-#             return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
-#
-#         if verified:
-#             # Update the is_verified field in UserProfile
-#             user.is_verified = True
-#             user.save()
-#
-#             # Update the isActive field in PatientPrescription for the same user
-#             try:
-#                 prescription = PatientPrescription.objects.get(id_card=id_card, phone=phone)
-#                 prescription.is_verified = True
-#                 prescription.save()
-#             except PatientPrescription.DoesNotExist:
-#                 return JsonResponse({'status': 'error', 'message': 'Prescription record not found'}, status=404)
-#
-#             return JsonResponse({'status': 'success', 'message': 'User and prescription verified successfully'})
-#         else:
-#             return JsonResponse({'status': 'error', 'message': 'Invalid verification status'}, status=400)
-#
-#     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-
 
 @csrf_exempt
 def get_user_info(request):
@@ -477,5 +389,57 @@ def get_user_info_by_name_and_doctor(request):
         }
 
         return JsonResponse({'status': 'success', 'user_info': user_info})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+@csrf_exempt
+def get_wechat_steps(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        code = data.get('code')
+        encrypted_data = data.get('encryptedData')
+        iv = data.get('iv')
+
+        if not code or not encrypted_data or not iv:
+            return JsonResponse({'status': 'error', 'message': 'Missing required fields'}, status=400)
+
+        # 获取 session_key
+        appid = settings.WECHAT_APPID
+        secret = settings.WECHAT_SECRET
+        wx_url = f"https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={code}&grant_type=authorization_code"
+        response = requests.get(wx_url)
+        wx_data = response.json()
+
+        if 'session_key' not in wx_data:
+            return JsonResponse({'status': 'error', 'message': 'Failed to get session_key'}, status=400)
+
+        session_key = wx_data['session_key']
+
+        try:
+            # 解密微信步数数据
+            session_key = base64.b64decode(session_key)
+            iv = base64.b64decode(iv)
+            encrypted_data = base64.b64decode(encrypted_data)
+
+            cipher = AES.new(session_key, AES.MODE_CBC, iv)
+            decrypted_data = cipher.decrypt(encrypted_data)
+
+            # 去除填充字节
+            padding_length = decrypted_data[-1]
+            decrypted_data = decrypted_data[:-padding_length]
+
+            # 解析 JSON 数据
+            decrypted_data = json.loads(decrypted_data.decode('utf-8'))
+            step_info_list = decrypted_data.get('stepInfoList', [])
+
+            # 获取当天步数（假设最后一个记录为当天步数）
+            if step_info_list:
+                today_steps = step_info_list[-1].get('step', 0)
+                return JsonResponse({'status': 'success', 'today_steps': today_steps})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'No step data available'}, status=400)
+
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': f'Decryption failed: {str(e)}'}, status=400)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)

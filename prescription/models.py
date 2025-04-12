@@ -1,3 +1,5 @@
+from contextlib import nullcontext
+
 from django.db import models
 
 class MotionList(models.Model):
@@ -12,6 +14,12 @@ class MotionList(models.Model):
     reps_per_set = models.IntegerField(default=6, verbose_name="每组训练个数")
     training_method = models.CharField(max_length=50, default="时长", verbose_name="单一动作训练方式")
     intensity = models.CharField(max_length=50, blank=True, null=True, verbose_name="动作强度")
+    duration = models.CharField(default=None,max_length=50, verbose_name="持续时间")
+    urls = models.URLField(max_length=200, blank=True, null=True, verbose_name="视频链接")
+    object = models.CharField(max_length=100, verbose_name="对象",default=None)
+    applicability = models.CharField(max_length=100, verbose_name="适用性",default=None)
+    purpose = models.CharField(max_length=100, verbose_name="目的",default=None)
+    details = models.TextField(verbose_name="详细信息", default=None)
 
     def __str__(self):
         return f"{self.name} - {self.category}"
@@ -40,3 +48,34 @@ class MotionPrescription(models.Model):
     class Meta:
         verbose_name = "处方详情"
         verbose_name_plural = "处方详情"
+
+from django.db import models
+
+class MotionAudio(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name="ID")
+    name = models.CharField(max_length=100, verbose_name="音频名称")
+    category = models.CharField(max_length=50, verbose_name="分类")
+    oss_url = models.URLField(max_length=200, verbose_name="OSS URL")
+
+    def __str__(self):
+        return f"{self.name} - {self.category}"
+
+    class Meta:
+        verbose_name = "音频列表"
+        verbose_name_plural = "音频列表"
+
+class ExerciseRecord(models.Model):
+    id_card = models.CharField(max_length=18, verbose_name="身份证号")
+    name = models.CharField(max_length=100, verbose_name="姓名")
+    phone = models.CharField(max_length=20, verbose_name="电话")
+    doctor = models.CharField(max_length=100, verbose_name="医生")
+    training_content = models.JSONField(verbose_name="训练内容")
+    submission_time = models.DateTimeField(auto_now_add=True, verbose_name="提交时间")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "运动数据"
+        verbose_name_plural = "运动数据"
+
