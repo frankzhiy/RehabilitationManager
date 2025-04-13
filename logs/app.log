@@ -6434,3 +6434,243 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.11/site-packages/MySQLdb/connections.py", line 200, in __init__
     super().__init__(*args, **kwargs2)
 django.db.utils.OperationalError: (2002, "Can't connect to server on '127.0.0.1' (115)")
+INFO 2025-04-13 13:08:26,213 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 13:10:12,100 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 13:11:02,166 basehttp "POST /registration/login/ HTTP/1.1" 200 486
+INFO 2025-04-13 13:11:03,562 basehttp "POST /login/get_patient_data/ HTTP/1.1" 200 198
+INFO 2025-04-13 13:11:07,210 basehttp "POST /registration/get_wechat_steps/ HTTP/1.1" 200 40
+WARNING 2025-04-13 13:12:02,959 log Not Found: /favicon.ico
+WARNING 2025-04-13 13:12:02,961 basehttp "GET /favicon.ico HTTP/1.1" 404 4235
+WARNING 2025-04-13 13:12:02,969 log Not Found: /apple-touch-icon-precomposed.png
+WARNING 2025-04-13 13:12:02,970 basehttp "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 4298
+WARNING 2025-04-13 13:12:02,986 log Not Found: /apple-touch-icon.png
+WARNING 2025-04-13 13:12:02,986 basehttp "GET /apple-touch-icon.png HTTP/1.1" 404 4262
+WARNING 2025-04-13 13:12:03,251 log Not Found: /
+WARNING 2025-04-13 13:12:03,251 basehttp "GET / HTTP/1.1" 404 4184
+INFO 2025-04-13 13:14:03,316 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/RehabilitationManager/settings.py changed, reloading.
+INFO 2025-04-13 13:14:04,153 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 13:14:13,460 basehttp "POST /registration/login/ HTTP/1.1" 200 513
+INFO 2025-04-13 13:14:13,901 basehttp "POST /login/get_patient_data/ HTTP/1.1" 200 450
+INFO 2025-04-13 13:14:15,864 basehttp "POST /registration/get_wechat_steps/ HTTP/1.1" 200 40
+INFO 2025-04-13 13:16:12,153 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 13:16:24,672 basehttp "POST /registration/login/ HTTP/1.1" 200 513
+INFO 2025-04-13 13:16:25,099 basehttp "POST /login/get_patient_data/ HTTP/1.1" 200 450
+INFO 2025-04-13 13:16:27,106 basehttp "POST /registration/get_wechat_steps/ HTTP/1.1" 200 40
+INFO 2025-04-13 14:37:30,361 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 14:37:37,298 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 14:37:37,349 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 14:37:39,845 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 14:37:39,926 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 14:37:41,205 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 14:37:43,023 basehttp "POST /registration/get_user_info/ HTTP/1.1" 200 294
+WARNING 2025-04-13 14:37:45,551 log Not Found: /followup/get_followup_records/
+WARNING 2025-04-13 14:37:45,553 basehttp "GET /followup/get_followup_records/?name=%E6%B5%8B%E8%AF%95%E4%B8%80%E5%8F%B7&id_card=120102194401010010&phone=9527&doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 404 4419
+WARNING 2025-04-13 14:39:47,071 log Not Found: /followup/get_followup_records/
+WARNING 2025-04-13 14:39:47,072 basehttp "GET /followup/get_followup_records/?name=%E6%B5%8B%E8%AF%95%E4%B8%80%E5%8F%B7&id_card=120102194401010010&phone=9527&doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 404 4419
+WARNING 2025-04-13 14:40:23,486 log Not Found: /followup/get_followup_records/
+WARNING 2025-04-13 14:40:23,487 basehttp "GET /followup/get_followup_records/?name=%E6%B5%8B%E8%AF%95%E4%B8%80%E5%8F%B7&id_card=120102194401010010&phone=9527&doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 404 4419
+INFO 2025-04-13 14:42:53,020 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 14:42:53,020 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 14:42:53,027 basehttp "POST /registration/get_user_info/ HTTP/1.1" 200 294
+INFO 2025-04-13 14:42:53,034 basehttp "GET /followUp/get_followup_records/?name=%E6%B5%8B%E8%AF%95%E4%B8%80%E5%8F%B7&id_card=120102194401010010&phone=9527&doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 3044
+INFO 2025-04-13 14:42:53,043 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 14:49:12,758 basehttp "GET /followUp/get_followup_records/?name=%E6%B5%8B%E8%AF%95%E4%B8%80%E5%8F%B7&id_card=120102194401010010&phone=9527&doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 3044
+INFO 2025-04-13 14:49:37,748 basehttp "POST /registration/get_user_info/ HTTP/1.1" 200 294
+INFO 2025-04-13 14:49:44,442 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 14:49:55,973 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1530
+INFO 2025-04-13 14:53:32,025 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1530
+INFO 2025-04-13 14:55:02,324 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1530
+INFO 2025-04-13 14:57:34,144 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1530
+INFO 2025-04-13 15:09:39,105 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 15:09:40,187 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:18:00,808 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 15:18:00,808 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 15:18:00,833 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 15:19:08,797 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 15:19:08,800 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 15:19:08,821 basehttp "GET /prescription/get_prescription/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1143
+INFO 2025-04-13 15:22:01,092 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:22:01,132 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+WARNING 2025-04-13 15:23:59,514 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 15:23:59,515 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 57
+WARNING 2025-04-13 15:26:51,176 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 15:26:51,178 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 57
+WARNING 2025-04-13 15:27:06,608 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 15:27:06,609 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 57
+WARNING 2025-04-13 15:27:44,972 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 15:27:44,976 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 57
+WARNING 2025-04-13 15:31:27,189 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 15:31:27,191 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 57
+INFO 2025-04-13 15:32:17,811 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:32:28,759 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:32:28,801 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+WARNING 2025-04-13 15:32:29,312 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 15:32:29,313 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 57
+INFO 2025-04-13 15:35:57,263 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/urls.py changed, reloading.
+INFO 2025-04-13 15:35:58,676 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:36:34,482 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/urls.py changed, reloading.
+INFO 2025-04-13 15:36:35,842 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-13 15:37:49,400 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 15:37:49,403 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 57
+INFO 2025-04-13 15:38:06,540 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:38:21,174 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:38:21,213 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 15:38:21,674 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:39:06,858 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:39:42,015 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:39:58,579 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:40:40,430 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:40:40,430 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:41:07,939 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:41:07,939 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:41:27,152 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:41:27,153 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:41:30,127 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1530
+INFO 2025-04-13 15:41:33,914 basehttp "POST /patientWarn/deactivate_warn/ HTTP/1.1" 200 68
+INFO 2025-04-13 15:41:33,996 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1054
+INFO 2025-04-13 15:41:39,679 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 15:41:48,568 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:41:48,606 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 15:41:49,082 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:41:49,083 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:42:01,753 basehttp "POST /followUp/get_active_followups/ HTTP/1.1" 200 521
+INFO 2025-04-13 15:42:12,100 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:42:40,141 basehttp "POST /followUp/get_active_followups/ HTTP/1.1" 200 521
+INFO 2025-04-13 15:43:31,696 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 15:43:33,083 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:43:36,460 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 15:43:37,171 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:44:14,971 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:44:31,767 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:44:31,768 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:44:46,032 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:44:46,072 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 15:44:46,571 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:44:46,571 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:45:02,985 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:45:12,048 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:45:12,088 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 15:46:08,032 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1054
+INFO 2025-04-13 15:47:59,276 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:48:14,371 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:48:14,485 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 15:48:15,138 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:48:15,174 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:48:19,570 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1054
+INFO 2025-04-13 15:48:33,730 basehttp "POST /followUp/create_followup/ HTTP/1.1" 200 87
+INFO 2025-04-13 15:49:28,111 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 15:49:28,999 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 15:50:16,113 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1054
+INFO 2025-04-13 15:50:16,138 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1054
+INFO 2025-04-13 15:50:33,253 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 15:50:33,288 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 15:50:33,806 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:50:33,826 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:50:57,695 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:50:57,703 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 15:51:09,366 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1054
+INFO 2025-04-13 15:51:09,428 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1054
+INFO 2025-04-13 15:55:18,299 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/patientWarn/views.py changed, reloading.
+INFO 2025-04-13 15:55:19,236 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:00:10,913 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:00:12,362 basehttp "POST /followUp/get_active_followups/ HTTP/1.1" 200 521
+INFO 2025-04-13 16:02:42,182 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:10:35,277 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:10:36,216 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:12:00,237 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:12:01,094 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:13:50,843 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:13:51,696 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:14:03,343 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 16:14:03,387 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 16:14:03,876 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:14:03,879 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:16:05,184 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:16:06,057 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:16:11,613 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:16:11,613 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:16:20,214 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 16:16:20,298 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 16:16:20,693 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:16:20,693 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:17:49,705 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:17:50,733 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:17:52,090 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:17:52,617 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:18:11,422 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:18:11,423 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:18:25,170 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:18:25,232 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+WARNING 2025-04-13 16:31:49,828 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 16:31:49,830 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 64
+INFO 2025-04-13 16:31:51,729 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 16:31:53,246 basehttp "POST /registration/get_user_info/ HTTP/1.1" 200 294
+INFO 2025-04-13 16:31:56,327 basehttp "GET /followUp/get_followup_records/?name=%E6%B5%8B%E8%AF%95%E4%B8%80%E5%8F%B7&id_card=120102194401010010&phone=9527&doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 3629
+INFO 2025-04-13 16:32:37,334 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+WARNING 2025-04-13 16:32:39,086 log Bad Request: /statisticsAndFeedback/get_warn_statistics/
+WARNING 2025-04-13 16:32:39,087 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 400 64
+INFO 2025-04-13 16:33:36,906 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:33:37,772 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:34:13,176 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:34:14,033 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:34:27,718 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 16:34:27,751 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 16:34:28,164 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:34:28,164 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:34:36,480 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:34:36,530 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:34:54,471 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:34:55,587 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:39:07,866 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:39:07,967 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:45:07,182 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:45:07,269 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:46:33,412 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:46:34,719 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:46:34,769 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:46:52,392 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 16:46:52,517 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 16:46:53,049 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:46:53,050 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:46:54,234 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:46:54,323 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:48:49,261 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 16:48:49,296 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 16:48:49,721 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:48:49,723 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:48:51,436 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:48:51,480 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:48:59,822 basehttp "POST /followUp/create_followup/ HTTP/1.1" 200 87
+INFO 2025-04-13 16:48:59,883 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:49:07,815 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:49:17,546 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 16:49:17,587 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 16:49:18,054 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:49:18,055 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:50:51,441 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:50:52,343 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:51:23,348 autoreload /Users/frank_zhiy/Documents/滨江研究院/wx-srrCOPD-service/RehabilitationManager/statisticsAndFeedback/views.py changed, reloading.
+INFO 2025-04-13 16:51:24,186 autoreload Watching for file changes with StatReloader
+INFO 2025-04-13 16:51:26,823 basehttp "POST /registration/login_doctor/ HTTP/1.1" 200 235
+INFO 2025-04-13 16:51:26,890 basehttp "POST /registration/get_user_names_by_doctor/ HTTP/1.1" 200 65
+INFO 2025-04-13 16:51:27,405 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:51:27,405 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:51:47,886 basehttp "POST /registration/get_verified_users_by_doctor/ HTTP/1.1" 200 509
+INFO 2025-04-13 16:51:49,029 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:51:53,480 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:51:53,561 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:51:57,981 basehttp "POST /patientWarn/deactivate_warn/ HTTP/1.1" 200 68
+INFO 2025-04-13 16:51:58,028 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 825
+INFO 2025-04-13 16:51:59,446 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:52:01,718 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 825
+INFO 2025-04-13 16:52:01,750 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 825
+INFO 2025-04-13 16:52:15,593 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:52:16,696 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:52:16,787 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1162
+INFO 2025-04-13 16:52:25,516 basehttp "POST /followUp/create_followup/ HTTP/1.1" 200 87
+INFO 2025-04-13 16:52:25,585 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:52:27,283 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:52:34,903 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:52:34,945 basehttp "GET /patientWarn/patient_warn/?doctor=%E5%BC%A0%E5%8C%BB%E7%94%9F HTTP/1.1" 200 1161
+INFO 2025-04-13 16:52:38,044 basehttp "POST /statisticsAndFeedback/get_warn_statistics/ HTTP/1.1" 200 94
+INFO 2025-04-13 16:52:39,087 basehttp "POST /followUp/get_active_followups/ HTTP/1.1" 200 521

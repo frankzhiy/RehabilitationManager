@@ -148,89 +148,6 @@ def create_followup(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-# def create_followup(request):
-#     if request.method == 'POST':
-#         try:
-#             data = json.loads(request.body)
-#
-#             # 确保字段是字典
-#             patient_adl_warn = json.loads(data.get('PatientADLWarn', '{}'))
-#             patient_cat_warn = json.loads(data.get('PatientCATWarn', '{}'))
-#             patient_ccq_warn = json.loads(data.get('PatientCCQWarn', '{}'))
-#             patient_discomfort_record_warn = json.loads(data.get('PatientDiscomfortRecordWarn', '{}'))
-#             patient_mmrc_warn = json.loads(data.get('PatientmMRCWarn', '{}'))
-#
-#             # 组合 reasonDetail
-#             reason_detail = {}
-#             if patient_adl_warn:
-#                 reason_detail['barthel_index'] = patient_adl_warn.get('barthel_index')
-#             if patient_cat_warn:
-#                 reason_detail['cat_index'] = patient_cat_warn.get('cat_index')
-#             if patient_ccq_warn:
-#                 reason_detail['ccq_index'] = patient_ccq_warn.get('ccq_index')
-#             if patient_discomfort_record_warn:
-#                 reason_detail['alert_type'] = patient_discomfort_record_warn.get('alert_type')
-#             if patient_mmrc_warn:
-#                 reason_detail['mmrc_index'] = patient_mmrc_warn.get('mmrc_index')
-#
-#             # 将 reasonDetail 转换为 JSON 字符串，确保不转义非 ASCII 字符
-#             reason_detail_str = json.dumps(reason_detail, ensure_ascii=False)
-#
-#             # 创建 FollowUp 记录
-#             followup = FollowUp(
-#                 name=data.get('name'),
-#                 id_card=data.get('id_card'),
-#                 phone=data.get('phone'),
-#                 doctor=data.get('doctor'),
-#                 followUpEffectiveness=data.get('followUpEffectiveness'),
-#                 ineffectivenessReason=data.get('ineffectivenessReason'),
-#                 qualityOfLife=data.get('qualityOfLife'),
-#                 physicalCondition=data.get('physicalCondition'),
-#                 psychologicalCondition=data.get('psychologicalCondition'),
-#                 medicationAdherence=data.get('medicationAdherence'),
-#                 exacerbations=data.get('exacerbations'),
-#                 acuteExacerbations=data.get('acuteExacerbations'),
-#                 newDiscomfort=data.get('newDiscomfort'),
-#                 newSymptoms=data.get('newSymptoms'),
-#                 followUpReason=data.get('followUpReason'),
-#                 followUpTime=parse_datetime(data.get('followUpTime')),
-#                 reasonDetail=reason_detail_str
-#             )
-#             followup.save()
-#
-#             # 更新相关预警记录的 finishedFollowup 字段
-#             patient_filter = {
-#                 'name': data.get('name'),
-#                 'phone': data.get('phone'),
-#                 'id_card': data.get('id_card'),
-#                 'doctor': data.get('doctor')
-#             }
-#
-#             if patient_adl_warn:
-#                 upload_time = parse_datetime(patient_adl_warn.get('uploadTime'))
-#                 PatientADLWarn.objects.filter(uploadTime=upload_time, **patient_filter).update(finishedFollowup=True)
-#
-#             if patient_cat_warn:
-#                 upload_time = parse_datetime(patient_cat_warn.get('uploadTime'))
-#                 PatientCATWarn.objects.filter(uploadTime=upload_time, **patient_filter).update(finishedFollowup=True)
-#
-#             if patient_ccq_warn:
-#                 upload_time = parse_datetime(patient_ccq_warn.get('uploadTime'))
-#                 PatientCCQWarn.objects.filter(uploadTime=upload_time, **patient_filter).update(finishedFollowup=True)
-#
-#             if patient_discomfort_record_warn:
-#                 datetime = parse_datetime(patient_discomfort_record_warn.get('datetime'))
-#                 PatientDiscomfortRecordWarn.objects.filter(datetime=datetime, **patient_filter).update(finishedFollowup=True)
-#
-#             if patient_mmrc_warn:
-#                 upload_time = parse_datetime(patient_mmrc_warn.get('uploadTime'))
-#                 PatientmMRCWarn.objects.filter(uploadTime=upload_time, **patient_filter).update(finishedFollowup=True)
-#
-#             return JsonResponse({'status': 'success', 'message': 'Follow-up created and warnings updated successfully'})
-#         except Exception as e:
-#             return JsonResponse({'status': 'error', 'message': str(e)})
-#     else:
-#         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
 @csrf_exempt
@@ -331,6 +248,37 @@ def ended_followup(request):
                 return JsonResponse({'status': 'success', 'message': 'Follow-up reactivated successfully'})
             else:
                 return JsonResponse({'status': 'error', 'message': 'Follow-up not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+@csrf_exempt
+def get_followup_records(request):
+    if request.method == 'GET':
+        try:
+            name = request.GET.get('name')
+            id_card = request.GET.get('id_card')
+            phone = request.GET.get('phone')
+            doctor = request.GET.get('doctor')
+
+            if not all([name, id_card, phone, doctor]):
+                return JsonResponse({'status': 'error', 'message': 'Missing required fields'}, status=400)
+
+            followups = FollowUp.objects.filter(
+                name=name,
+                id_card=id_card,
+                phone=phone,
+                doctor=doctor
+            ).values(
+                'name', 'id_card', 'phone', 'doctor', 'followUpEffectiveness',
+                'ineffectivenessReason', 'qualityOfLife', 'physicalCondition',
+                'psychologicalCondition', 'medicationAdherence', 'exacerbations',
+                'acuteExacerbations', 'newDiscomfort', 'newSymptoms', 'followUpReason',
+                'reasonDetail', 'followUpTime'
+            )
+
+            return JsonResponse({'status': 'success', 'data': list(followups)})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     else:

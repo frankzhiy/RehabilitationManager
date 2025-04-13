@@ -7,7 +7,7 @@ WORKDIR /app
 # 复制项目文件到容器中
 COPY . /app
 
-# 安装系统依赖和 Python 包
+# 安装系统依赖和 Python 包，并配置 pip 使用国内镜像源
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         gcc \
@@ -17,8 +17,15 @@ RUN apt-get update && \
         pkg-config \
         python3-dev && \
     rm -rf /var/lib/apt/lists/* && \
+    # 创建 pip 配置文件，设置镜像源
+    mkdir -p /root/.pip && \
+    echo "[global]" > /root/.pip/pip.conf && \
+    echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >> /root/.pip/pip.conf && \
+    echo "[install]" >> /root/.pip/pip.conf && \
+    echo "trusted-host = pypi.tuna.tsinghua.edu.cn" >> /root/.pip/pip.conf && \
+    # 升级 pip 并安装项目依赖
     pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --default-timeout=100 --no-cache-dir -r requirements.txt
 
 # 暴露端口
 EXPOSE 8087

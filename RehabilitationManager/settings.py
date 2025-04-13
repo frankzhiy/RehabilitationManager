@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-lod%yj15=abn#k5lz5&n&_54s$0f4!aticbu-rxa!z00!v$11&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8.130.102.191', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -98,15 +98,15 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "srrCOPD",
         # 服务器
-        'USER': 'zjubj',
-        'PASSWORD': 'Data@base0',
-        'HOST': '8.130.102.191',  # 如果是 Docker Compose，使用服务名
-        'PORT': '3306',
+        # 'USER': 'zjubj',
+        # 'PASSWORD': 'Data@base0',
+        # 'HOST': '8.130.102.191',  
+        # 'PORT': '3306',
         # 本地
-        # "USER": "root",
-        # "PASSWORD": "rootdatabase",
-        # "HOST": "127.0.0.1",
-        # "PORT": "3306",
+        "USER": "root",
+        "PASSWORD": "rootdatabase",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
 
     }
 }

@@ -57,26 +57,31 @@ def patient_warn_view(request):
                             'alert_type': discomfort_record.alert_type,
                             'datetime': discomfort_record.datetime,
                             'is_active': discomfort_record.is_active,
+                            'finishedFollowup': discomfort_record.finishedFollowup,
                         } if discomfort_record else None,
                         'PatientADLWarn': {
                             'barthel_index': adl_record.barthel_index,
                             'uploadTime': adl_record.uploadTime,
                             'is_active': adl_record.is_active,
+                            'finishedFollowup': adl_record.finishedFollowup,
                         } if adl_record else None,
                         'PatientCATWarn': {
                             'cat_index': cat_record.cat_index,
                             'uploadTime': cat_record.uploadTime,
                             'is_active': cat_record.is_active,
+                            'finishedFollowup': cat_record.finishedFollowup,
                         } if cat_record else None,
                         'PatientmMRCWarn': {
                             'mmrc_index': mmrc_record.mmrc_index,
                             'uploadTime': mmrc_record.uploadTime,
                             'is_active': mmrc_record.is_active,
+                            'finishedFollowup': mmrc_record.finishedFollowup,
                         } if mmrc_record else None,
                         'PatientCCQWarn': {
                             'ccq_index': ccq_record.ccq_index,
                             'uploadTime': ccq_record.uploadTime,
                             'is_active': ccq_record.is_active,
+                            'finishedFollowup': ccq_record.finishedFollowup,
                         } if ccq_record else None,
                     }
 
@@ -89,74 +94,6 @@ def patient_warn_view(request):
 
     else:
         return JsonResponse({'status': 'error', 'message': '请求方法错误'})
-# def patient_warn_view(request):
-#     if request.method == 'GET':
-#         doctor = request.GET.get('doctor')
-#
-#         if not doctor:
-#             return JsonResponse({'status': 'error', 'message': '缺少医生信息'})
-#
-#         try:
-#             patient_set = set()
-#             warn_models = [PatientDiscomfortRecordWarn, PatientADLWarn, PatientCATWarn, PatientmMRCWarn, PatientCCQWarn]
-#
-#             for model in warn_models:
-#                 patients = model.objects.filter(doctor=doctor, is_active=True).values('id_card', 'phone', 'name')
-#                 for patient in patients:
-#                     patient_tuple = (patient['id_card'], patient['phone'], patient['name'])
-#                     patient_set.add(patient_tuple)
-#
-#             data = []
-#
-#             for id_card, phone, name in patient_set:
-#                 patient_filter = Q(doctor=doctor) & Q(id_card=id_card) & Q(phone=phone) & Q(name=name) & Q(is_active=True)
-#
-#                 discomfort_record = PatientDiscomfortRecordWarn.objects.filter(patient_filter).order_by('-datetime').first()
-#                 adl_record = PatientADLWarn.objects.filter(patient_filter).order_by('-uploadTime').first()
-#                 cat_record = PatientCATWarn.objects.filter(patient_filter).order_by('-uploadTime').first()
-#                 mmrc_record = PatientmMRCWarn.objects.filter(patient_filter).order_by('-uploadTime').first()
-#                 ccq_record = PatientCCQWarn.objects.filter(patient_filter).order_by('-uploadTime').first()
-#
-#                 patient_data = {
-#                     'id_card': id_card,
-#                     'phone': phone,
-#                     'name': name,
-#                     'PatientDiscomfortRecordWarn': {
-#                         'alert_type': discomfort_record.alert_type,
-#                         'datetime': discomfort_record.datetime,
-#                         'is_active': discomfort_record.is_active,
-#                     } if discomfort_record else None,
-#                     'PatientADLWarn': {
-#                         'barthel_index': adl_record.barthel_index,
-#                         'uploadTime': adl_record.uploadTime,
-#                         'is_active': adl_record.is_active,
-#                     } if adl_record else None,
-#                     'PatientCATWarn': {
-#                         'cat_index': cat_record.cat_index,
-#                         'uploadTime': cat_record.uploadTime,
-#                         'is_active': cat_record.is_active,
-#                     } if cat_record else None,
-#                     'PatientmMRCWarn': {
-#                         'mmrc_index': mmrc_record.mmrc_index,
-#                         'uploadTime': mmrc_record.uploadTime,
-#                         'is_active': mmrc_record.is_active,
-#                     } if mmrc_record else None,
-#                     'PatientCCQWarn': {
-#                         'ccq_index': ccq_record.ccq_index,
-#                         'uploadTime': ccq_record.uploadTime,
-#                         'is_active': ccq_record.is_active,
-#                     } if ccq_record else None,
-#                 }
-#
-#                 data.append(patient_data)
-#
-#             return JsonResponse({'status': 'success', 'data': data})
-#
-#         except Exception as e:
-#             return JsonResponse({'status': 'error', 'message': str(e)})
-#
-#     else:
-#         return JsonResponse({'status': 'error', 'message': '请求方法错误'})
 
 @csrf_exempt
 def deactivate_warn_records(request):
