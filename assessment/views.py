@@ -310,7 +310,6 @@ def get_latest_pef_assessment(request):
                 name=name,
                 phone=phone
             ).order_by('-PEFUploadTime').first()
-
             if record:
                 return JsonResponse({
                     'status': 'success',

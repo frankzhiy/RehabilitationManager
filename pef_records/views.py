@@ -15,36 +15,18 @@ def upload_pef_record(request):
             doctor = data.get('doctor')
             name = data.get('name')
             date_text = data.get('dateText')
-
-            # Check if a record with the same id_card, phone, doctor, name, and dateText exists
-            existing_record = PatientPEFRecord.objects.filter(
+            # Always create and save a new PEF record
+            record = PatientPEFRecord(
                 id_card=id_card,
                 phone=phone,
                 doctor=doctor,
                 name=name,
-                dateText=date_text
-            ).first()
-
-            if existing_record:
-                # Update the existing record's pefValue
-                existing_record.pefValue = data.get('pefValue')
-                existing_record.save()
-                message = 'PEF record updated successfully!'
-            else:
-                # Create and save a new PEF record
-                record = PatientPEFRecord(
-                    id_card=id_card,
-                    phone=phone,
-                    doctor=doctor,
-                    name=name,
-                    pefValue=data.get('pefValue'),
-                    dateText=date_text,
-                    currentTime=data.get('currentTime'),
-                )
-                record.save()
-                message = 'PEF record saved successfully!'
-
-            # Return success response
+                pefValue=data.get('pefValue'),
+                dateText=date_text,
+                currentTime=data.get('currentTime'),
+            )
+            record.save()
+            message = 'PEF record saved successfully!'
             return JsonResponse({'status': 'success', 'message': message})
         except Exception as e:
             # Return error response
@@ -52,26 +34,38 @@ def upload_pef_record(request):
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 
-@csrf_exempt  # 如果启用了CSRF保护，在开发阶段可以暂时禁用它
+@csrf_exempt  # 修改后upload_best_pef_record会覆盖已有记录
 def upload_best_pef_record(request):
     if request.method == 'POST':
         try:
             # 解析 JSON 数据
             data = json.loads(request.body)
-
-            # 创建并保存最佳PEF记录
-            best_record = PatientBestPEFRecord(
+            # 检查是否存在相同条件的最佳PEF记录
+            existing_record = PatientBestPEFRecord.objects.filter(
                 id_card=data.get('id_card'),
                 phone=data.get('phone'),
                 doctor=data.get('doctor'),
-                name=data.get('name'),
-                bestpefInput=data.get('bestpefInput'),
-                currentTime=data.get('currentTime'),
-            )
-            best_record.save()
-
-            # 返回成功响应
-            return JsonResponse({'status': 'success', 'message': '最佳PEF记录保存成功!'})
+                name=data.get('name')
+            ).first()
+            if existing_record:
+                # 更新已存在的记录
+                existing_record.bestpefInput = data.get('bestpefInput')
+                existing_record.currentTime = data.get('currentTime')
+                existing_record.save()
+                message = '最佳PEF记录 updated successfully!'
+            else:
+                # 创建并保存新的最佳PEF记录
+                best_record = PatientBestPEFRecord(
+                    id_card=data.get('id_card'),
+                    phone=data.get('phone'),
+                    doctor=data.get('doctor'),
+                    name=data.get('name'),
+                    bestpefInput=data.get('bestpefInput'),
+                    currentTime=data.get('currentTime'),
+                )
+                best_record.save()
+                message = '最佳PEF记录 saved successfully!'
+            return JsonResponse({'status': 'success', 'message': message})
         except Exception as e:
             # 返回错误响应
             return JsonResponse({'status': 'error', 'message': str(e)})
@@ -79,50 +73,58 @@ def upload_best_pef_record(request):
         return JsonResponse({'status': 'error', 'message': '无效请求'})
 
 
-@csrf_exempt  # 获取PEF记录
+@csrf_exempt  # 修改后的 get_pef_records
 def get_pef_records(request):
     if request.method == 'GET':
+        name = request.GET.get('name')
         id_card = request.GET.get('id_card')
         phone = request.GET.get('phone')
-
-        if not id_card and not phone:
-            return JsonResponse({'status': 'error', 'message': '必须提供id_card或phone'})
-
+        doctor = request.GET.get('doctor')
+        if not (name and id_card and phone and doctor):
+            return JsonResponse({'status': 'error', 'message': '必须提供name, id_card, phone和doctor'})
         try:
-            if id_card:
-                records = PatientPEFRecord.objects.filter(id_card=id_card)
-            elif phone:
-                records = PatientPEFRecord.objects.filter(phone=phone)
-
-            records_list = list(records.values())
-            return JsonResponse({'status': 'success', 'data': records_list})
+            # 查询PatientPEFRecord最新记录（按currentTime降序排序）
+            record = PatientPEFRecord.objects.filter(
+                name=name,
+                id_card=id_card,
+                phone=phone,
+                doctor=doctor
+            ).order_by('-currentTime').first()
+            if record:
+                data = {
+                    'pefValue': record.pefValue,
+                    'dateText': record.dateText
+                }
+                return JsonResponse({'status': 'success', 'data': data})
+            else:
+                return JsonResponse({'status': 'error', 'message': '未找到PEF记录'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
     else:
         return JsonResponse({'status': 'error', 'message': '无效请求'})
 
-
-@csrf_exempt  # 获取最佳PEF记录
+@csrf_exempt  # 修改后的 get_best_pef_records
 def get_best_pef_records(request):
     if request.method == 'GET':
+        name = request.GET.get('name')
         id_card = request.GET.get('id_card')
         phone = request.GET.get('phone')
-
-        if not id_card and not phone:
-            return JsonResponse({'status': 'error', 'message': '必须提供id_card或phone'})
-
+        doctor = request.GET.get('doctor')
+        if not (name and id_card and phone and doctor):
+            return JsonResponse({'status': 'error', 'message': '必须提供name, id_card, phone和doctor'})
         try:
-            if id_card:
-                record = PatientBestPEFRecord.objects.filter(id_card=id_card).order_by('-currentTime').first()
-            elif phone:
-                record = PatientBestPEFRecord.objects.filter(phone=phone).order_by('-currentTime').first()
-
+            # 查询PatientBestPEFRecord最新记录（按currentTime降序排序）
+            record = PatientBestPEFRecord.objects.filter(
+                name=name,
+                id_card=id_card,
+                phone=phone,
+                doctor=doctor
+            ).order_by('-currentTime').first()
             if record:
-                record_data = record.__dict__
-                record_data.pop('_state', None)  # Remove the internal state attribute
-                return JsonResponse({'status': 'success', 'data': record_data})
+                data = {'bestpefInput': record.bestpefInput}
+                return JsonResponse({'status': 'success', 'data': data})
             else:
-                return JsonResponse({'status': 'error', 'message': '未找到记录'})
+                return JsonResponse({'status': 'error', 'message': '未找到最佳PEF记录'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
     else:
