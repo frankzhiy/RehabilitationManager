@@ -75,7 +75,7 @@ def get_prescription(request):
 
             # 将记录转换为字典
             data = list(prescription.values(
-                'doctor', 'id_card', 'name', 'phone', 'swallowStatusPrescription',
+                'doctor', 'id_card', 'name', 'phone', 'swallowStatusPrescription','sex'
                 'MepAndMipPrescription', 'limbStatusPrescription', 'PEFPrescription',
                 'TCEPrescription', 'MwtAndStepPrescription', 'uploadtime', 'isActive', 'is_verified'
             ))
