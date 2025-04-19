@@ -75,7 +75,7 @@ def get_prescription(request):
 
             # 将记录转换为字典
             data = list(prescription.values(
-                'doctor', 'id_card', 'name', 'phone', 'swallowStatusPrescription','sex'
+                'doctor', 'id_card', 'name', 'phone', 'swallowStatusPrescription','sex',
                 'MepAndMipPrescription', 'limbStatusPrescription', 'PEFPrescription',
                 'TCEPrescription', 'MwtAndStepPrescription', 'uploadtime', 'isActive', 'is_verified'
             ))
@@ -234,7 +234,7 @@ def get_motion_prescriptions(request):
         }
 
         other_data = list(other_prescriptions.values(
-            'name', 'id_card', 'phone', 'doctor', 'limbPrescription', 'pefPrescription','sex'
+            'name', 'id_card', 'phone', 'doctor', 'limbPrescription', 'pefPrescription','sex',
             'respiratoryPrescription', 'swallowPrescription', 'tcePrescription', 'upload_time', 'is_active'
         ))
 
