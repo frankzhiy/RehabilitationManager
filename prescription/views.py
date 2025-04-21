@@ -234,7 +234,7 @@ def get_motion_prescriptions(request):
         }
 
         other_data = list(other_prescriptions.values(
-            'name', 'id_card', 'phone', 'doctor', 'limbPrescription', 'pefPrescription','sex',
+            'name', 'id_card', 'phone', 'doctor', 'limbPrescription', 'pefPrescription',
             'respiratoryPrescription', 'swallowPrescription', 'tcePrescription', 'upload_time', 'is_active'
         ))
 
