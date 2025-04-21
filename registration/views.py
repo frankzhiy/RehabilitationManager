@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password
 import json
-from .models import UserProfile, DoctorProfile, PatientPrescription, PatientFollowUp
+from .models import UserProfile, DoctorProfile, PatientPrescription, PatientFollowUp, SymptomDoctor
 import requests
 from django.conf import settings
 from Crypto.Cipher import AES
@@ -443,3 +443,10 @@ def get_wechat_steps(request):
             return JsonResponse({'status': 'error', 'message': f'Decryption failed: {str(e)}'}, status=400)
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+def get_symptom_doctors(request):
+    if request.method != 'GET':
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method, only GET allowed'}, status=400)
+    qs = SymptomDoctor.objects.all()
+    data = [{"symptom": obj.symptom, "doctor": obj.doctor} for obj in qs]
+    return JsonResponse(data, safe=False)
