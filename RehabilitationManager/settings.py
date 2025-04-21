@@ -98,15 +98,15 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "srrCOPD",
         # 服务器
-        'USER': 'zjubj',
-        'PASSWORD': 'Data@base0',
-        'HOST': '8.130.102.191',
-        'PORT': '3306',
+        # 'USER': 'zjubj',
+        # 'PASSWORD': 'Data@base0',
+        # 'HOST': '8.130.102.191',
+        # 'PORT': '3306',
         # 本地
-        # "USER": "root",
-        # "PASSWORD": "rootdatabase",
-        # "HOST": "127.0.0.1",
-        # "PORT": "3306",
+        "USER": "root",
+        "PASSWORD": "rootdatabase",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
 
     }
 }

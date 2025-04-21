@@ -87,3 +87,12 @@ class PatientFollowUp(models.Model):
     followUpType = models.CharField(max_length=255, default='普通随访')
     def __str__(self):
         return f"{self.name} - {self.id_card} Follow-Up"
+    
+class SymptomDoctor(models.Model):
+    id = models.AutoField(primary_key=True)
+    symptom = models.CharField(max_length=255, verbose_name="症状")
+    doctor = models.CharField(max_length=100, verbose_name="医生")
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
+    
+    def __str__(self):
+        return f"症状: {self.symptom} - 医生: {self.doctor}"
