@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",   # 消息框架
     "django.contrib.staticfiles",   # 静态文件服务
     "django_celery_beat",  # Celery Beat
+    "diagnosisLLM.apps.DiagnosisllmConfig",  # 诊断LLM应用
 ]
 
 MIDDLEWARE = [

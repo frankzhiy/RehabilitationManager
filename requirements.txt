@@ -40,3 +40,7 @@ vine==5.1.0
 wcwidth==0.2.13
 wechatpy==1.8.18
 xmltodict==0.14.2
+channels==4.1.2
+channels-redis
+openai
+daphne==4.1.2

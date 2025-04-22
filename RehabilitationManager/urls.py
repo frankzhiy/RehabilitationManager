@@ -33,6 +33,7 @@ urlpatterns = [
     path('patientWarn/', include('patientWarn.urls')),
     path('followUp/', include('followUp.urls')),
     path('statisticsAndFeedback/', include('statisticsAndFeedback.urls')),
+    path('diagnosis/', include('diagnosisLLM.urls')),
 ]
 
 
