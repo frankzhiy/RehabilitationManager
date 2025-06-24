@@ -34,4 +34,4 @@ EXPOSE 8088
 # 启动 Gunicorn
 # CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8087", "RehabilitationManager.wsgi:application"]
 # 启动 WSGI 和 ASGI
-CMD ["python", "run_services.py"]
+CMD ["python", "start_all_services.py"]
