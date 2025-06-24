@@ -25,8 +25,8 @@ def generate_text(request):
         if not user_input:
             return JsonResponse({'error': '请提供文本内容'}, status=400)
         
-        # 创建流式响应
-        return StreamingHttpResponse(stream_deepseek_response(user_input), content_type='text/event-stream')
+        # 返回纯 JSON 格式的流式响应
+        return StreamingHttpResponse(stream_deepseek_response(user_input), content_type='application/json')
     
     except Exception as e:
         logger.error(f"处理请求时出错: {str(e)}")
@@ -34,7 +34,7 @@ def generate_text(request):
 
 def stream_deepseek_response(user_input):
     """
-    使用官方客户端库流式传输 deepseek 响应给前端
+    使用官方客户端库流式传输 deepseek 响应给前端（返回纯 JSON 格式数据，不使用 SSE 格式）
     """
     try:
         # 初始化 OpenAI 客户端，使用 DeepSeek API 端点
@@ -60,10 +60,12 @@ def stream_deepseek_response(user_input):
             if hasattr(chunk.choices[0], 'delta') and hasattr(chunk.choices[0].delta, 'content'):
                 content = chunk.choices[0].delta.content
                 if content:
-                    yield f"data: {json.dumps({'content': content})}\n\n"
+                    # 直接返回纯 JSON 数据，并设置 ensure_ascii=False
+                    yield json.dumps({'content': content}, ensure_ascii=False)
         
-        yield f"data: [DONE]\n\n"
+        # 完成标识
+        yield json.dumps({'done': True}, ensure_ascii=False)
         
     except Exception as e:
         logger.error(f"连接到 API 时出错: {str(e)}")
-        yield f"data: {json.dumps({'error': f'连接到 API 时出错: {str(e)}'})}\n\n"
+        yield json.dumps({'error': f"连接到 API 时出错: {str(e)}"}, ensure_ascii=False)

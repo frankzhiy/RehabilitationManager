@@ -11,4 +11,6 @@ urlpatterns = [
     path('save_exercise_record/', views.save_exercise_record, name='save_exercise_record'),
     path('get_exercise_record/', views.get_exercise_record, name='get_exercise_record'),
     path('generate_audio_sequence/', views.generate_audio_sequence, name='generate_audio_sequence'),
+    path('get_audio_task_status/', views.get_audio_task_status, name='get_audio_task_status'),
+    path('download_audio_result/', views.download_audio_result, name='download_audio_result'),
 ]

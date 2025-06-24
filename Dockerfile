@@ -15,7 +15,8 @@ RUN apt-get update && \
         default-libmysqlclient-dev \
         build-essential \
         pkg-config \
-        python3-dev && \
+        python3-dev \
+        ffmpeg && \
     rm -rf /var/lib/apt/lists/* && \
     # 创建 pip 配置文件，设置镜像源
     mkdir -p /root/.pip && \
@@ -29,6 +30,8 @@ RUN apt-get update && \
 
 # 暴露端口
 EXPOSE 8087
-
+EXPOSE 8088
 # 启动 Gunicorn
-CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8087", "RehabilitationManager.wsgi:application"]
+# CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8087", "RehabilitationManager.wsgi:application"]
+# 启动 WSGI 和 ASGI
+CMD ["python", "run_services.py"]

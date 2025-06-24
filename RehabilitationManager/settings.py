@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure-lod%yj15=abn#k5lz5&n&_54s$0f4!aticbu-rxa!z00!v$11&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8.130.102.191', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['8.130.102.191', 'localhost', '127.0.0.1','biomedical.zjubj.com']
 
 
 # Application definition
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",   # 静态文件服务
     "django_celery_beat",  # Celery Beat
     "diagnosisLLM.apps.DiagnosisllmConfig",  # 诊断LLM应用
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "RehabilitationManager.wsgi.application"
+ASGI_APPLICATION = 'RehabilitationManager.asgi.application'
 
 
 # Database
@@ -97,7 +99,8 @@ DATABASES = {
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": BASE_DIR / "db.sqlite3",
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "srrCOPD",
+        # "NAME": "srrCOPD",
+        "NAME": "srrCOPD-production",
         # 服务器
         'USER': 'zjubj',
         'PASSWORD': 'Data@base0',
@@ -218,12 +221,13 @@ MIDDLEWARE += [
 ]
 
 # Celery 配置
-# 使用 Redis 作为 Broker
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
-
-# 时区设置
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Shanghai'
-CELERY_ENABLE_UTC = False
+CELERY_ENABLE_UTC = True
 
 # Celery Beat 调度
 from celery.schedules import crontab
@@ -236,8 +240,29 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-WECHAT_APPID = 'wx0bb20ee2f1c7d370'
-WECHAT_SECRET = 'd984c3eec929e302d12df461a13030c6'
+WECHAT_APPID = 'wxdbe841e1e471d6a8'
+WECHAT_SECRET = '9113343fcf261648c1ad0841bcfb9351'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels.layers.InMemoryChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('redis', 6379)],
+#         },
+#     },
+# }
+
+# 修改CHANNEL_LAYERS配置
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],  # 改为这种格式
+            # 或者使用新版本语法：
+            # "hosts": ["redis://redis:6379/0"],
+        },
+    },
+}
