@@ -1,20 +1,107 @@
 
+# services:
+#   web:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "8087:8087"  
+#       - "8088:8088"
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       # - db
+#       - redis
+#     environment:
+#       - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
+#       - CELERY_BROKER_URL=redis://redis:6379/0
+
+#   celery:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     command: celery -A RehabilitationManager worker --loglevel=info
+#     depends_on:
+#       - redis
+#     environment:
+#       - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
+#       - CELERY_BROKER_URL=redis://redis:6379/0
+
+#   celery_beat:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     command: celery -A RehabilitationManager beat --loglevel=info
+#     depends_on:
+#       - redis
+#     environment:
+#       - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
+#       - CELERY_BROKER_URL=redis://redis:6379/0
+
+#   # websocket:
+#   #   build:
+#   #     context: .
+#   #     dockerfile: Dockerfile
+#   #   command: daphne -b 0.0.0.0 -p 8089 RehabilitationManager.asgi:application
+#   #   ports:
+#   #     - "8089:8089"
+#   #   volumes:
+#   #     - .:/app
+#   #   depends_on:
+#   #     - redis
+#   #   environment:
+#   #     - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
+
+#   # db:
+#   #   image: mysql:8.0
+#   #   restart: always
+#   #   environment:
+#   #     MYSQL_DATABASE: srrCOPD
+#   #     MYSQL_USER: zjubj
+#   #     MYSQL_PASSWORD: Data@base0
+#   #     MYSQL_ROOT_PASSWORD: database
+#   #   ports:
+#   #     - "3307:3306"
+
+#   redis:
+#     image: redis:6.2
+#     restart: always
+#     ports:
+#       - "6379:6379"
+
+#   # nginx:
+#   #   image: nginx:latest
+#   #   ports:
+#   #     - "8080:80"  # Nginx 监听的端口
+#   #   volumes:
+#   #     - ./nginx.conf:/etc/nginx/conf.d/default.conf
+#   #     - ./static:/app/static  # 静态文件目录
+#   #   depends_on:
+#   #     - web
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
+    # 使用 run_services.py 的方式启动 WSGI 和 ASGI
+    command: >
+      sh -c "
+      gunicorn RehabilitationManager.wsgi:application -b 0.0.0.0:8087 --workers 3 &
+      daphne -b 0.0.0.0 -p 8088 RehabilitationManager.asgi:application &
+      wait
+      "
     ports:
       - "8087:8087"  
       - "8088:8088"
     volumes:
       - .:/app
     depends_on:
-      # - db
       - redis
     environment:
       - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
       - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
 
   celery:
     build:
@@ -26,6 +113,9 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
       - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    volumes:
+      - .:/app
 
   celery_beat:
     build:
@@ -37,44 +127,12 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
       - CELERY_BROKER_URL=redis://redis:6379/0
-
-  # websocket:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   command: daphne -b 0.0.0.0 -p 8089 RehabilitationManager.asgi:application
-  #   ports:
-  #     - "8089:8089"
-  #   volumes:
-  #     - .:/app
-  #   depends_on:
-  #     - redis
-  #   environment:
-  #     - DJANGO_SETTINGS_MODULE=RehabilitationManager.settings
-
-  # db:
-  #   image: mysql:8.0
-  #   restart: always
-  #   environment:
-  #     MYSQL_DATABASE: srrCOPD
-  #     MYSQL_USER: zjubj
-  #     MYSQL_PASSWORD: Data@base0
-  #     MYSQL_ROOT_PASSWORD: database
-  #   ports:
-  #     - "3307:3306"
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    volumes:
+      - .:/app
 
   redis:
     image: redis:6.2
     restart: always
     ports:
       - "6379:6379"
-
-  # nginx:
-  #   image: nginx:latest
-  #   ports:
-  #     - "8080:80"  # Nginx 监听的端口
-  #   volumes:
-  #     - ./nginx.conf:/etc/nginx/conf.d/default.conf
-  #     - ./static:/app/static  # 静态文件目录
-  #   depends_on:
-  #     - web
