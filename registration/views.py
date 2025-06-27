@@ -236,7 +236,7 @@ def get_verified_users_by_doctor(request):
         if not doctor_name:
             return JsonResponse({'status': 'error', 'message': 'Doctor name is required'}, status=400)
 
-        unverified_users = UserProfile.objects.filter(doctor=doctor_name, is_verified=True)
+        unverified_users = UserProfile.objects.filter(doctor=doctor_name, is_verified=True).order_by('name')
         paginator = Paginator(unverified_users, page_size)
         try:
             users_page = paginator.page(page)

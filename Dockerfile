@@ -28,9 +28,21 @@ RUN apt-get update && \
     pip install --upgrade pip && \
     pip install --default-timeout=100 --no-cache-dir -r requirements.txt
 
+# 创建日志目录并设置权限
+RUN mkdir -p /app/logs && \
+    chmod 755 /app/logs && \
+    # 创建备用日志目录
+    mkdir -p /tmp/logs && \
+    chmod 755 /tmp/logs
+
+# 设置日志相关环境变量
+ENV LOG_DIR=/app/logs
+ENV PYTHONUNBUFFERED=1
+
 # 暴露端口
 EXPOSE 8087
 EXPOSE 8088
+
 # 启动 Gunicorn
 # CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8087", "RehabilitationManager.wsgi:application"]
 # 启动 WSGI 和 ASGI

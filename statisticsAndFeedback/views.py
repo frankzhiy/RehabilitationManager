@@ -112,10 +112,10 @@ def get_patient_data(request):
             # 修改PEF查询，使用PatientPEFRecord和PatientBestPEFRecord
             patient_pef_record = PatientPEFRecord.objects.filter(
                 name=name, phone=phone, id_card=id_card, doctor=doctor
-            ).order_by('-dateText').first()
+            ).order_by('-currentTime').first()
             patient_best_pef_record = PatientBestPEFRecord.objects.filter(
                 name=name, phone=phone, id_card=id_card, doctor=doctor
-            ).order_by('-id').first()  # 修改排序条件，PatientBestPEFRecord没有dateText字段
+            ).order_by('-currentTime').first()  # 修改排序条件，使用currentTime字段
             pef_value = patient_pef_record.pefValue if patient_pef_record else None
             pef_date = patient_pef_record.dateText if patient_pef_record else None
             best_pef_input = patient_best_pef_record.bestpefInput if patient_best_pef_record else None
@@ -127,13 +127,25 @@ def get_patient_data(request):
             medicines_full_date_time = medication_record.medicinesFullDateTime if medication_record else None
 
             questionnaire_count = 0
-            if PatientADL.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).exists():
+            
+            # 获取各问卷最新记录的uploadTime
+            patient_adl = PatientADL.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).order_by('-uploadTime').first()
+            patient_cat = PatientCAT.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).order_by('-uploadTime').first()
+            patient_mmrc = PatientmMRC.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).order_by('-uploadTime').first()
+            patient_ccq = PatientCCQ.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).order_by('-uploadTime').first()
+            
+            adl_upload_time = patient_adl.uploadTime if patient_adl else None
+            cat_upload_time = patient_cat.uploadTime if patient_cat else None
+            mmrc_upload_time = patient_mmrc.uploadTime if patient_mmrc else None
+            ccq_upload_time = patient_ccq.uploadTime if patient_ccq else None
+            
+            if patient_adl:
                 questionnaire_count += 1
-            if PatientCAT.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).exists():
+            if patient_cat:
                 questionnaire_count += 1
-            if PatientmMRC.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).exists():
+            if patient_mmrc:
                 questionnaire_count += 1
-            if PatientCCQ.objects.filter(name=name, phone=phone, id_card=id_card, doctor=doctor).exists():
+            if patient_ccq:
                 questionnaire_count += 1
 
             response_data = {
@@ -145,6 +157,10 @@ def get_patient_data(request):
                 'medicines_name': medicines_name,
                 'medicines_full_date_time': medicines_full_date_time,
                 'questionnaire_count': questionnaire_count,
+                'adl_upload_time': adl_upload_time,
+                'cat_upload_time': cat_upload_time,
+                'mmrc_upload_time': mmrc_upload_time,
+                'ccq_upload_time': ccq_upload_time,
             }
             return JsonResponse({'status': 'success', 'data': response_data})
         except Exception as e:

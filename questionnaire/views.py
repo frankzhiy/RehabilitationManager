@@ -222,6 +222,10 @@ def get_scores_by_patient(request):
                 'cat_score': cat_record.score if cat_record else None,
                 'mmrc_score': mmrc_record.score if mmrc_record else None,
                 'ccq_score': ccq_record.score if ccq_record else None,
+                'adl_upload_time': adl_record.uploadTime if adl_record else None,
+                'cat_upload_time': cat_record.uploadTime if cat_record else None,
+                'mmrc_upload_time': mmrc_record.uploadTime if mmrc_record else None,
+                'ccq_upload_time': ccq_record.uploadTime if ccq_record else None,
             }
             return JsonResponse({'status': 'success', 'data': data})
         except Exception as e:

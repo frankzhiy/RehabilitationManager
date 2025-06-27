@@ -160,57 +160,109 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 import os
 import logging
 from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
+from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# 确保 logs 目录存在
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOGS_DIR):
+    os.makedirs(LOGS_DIR)
+
+# 启动时备份现有日志文件
+def backup_existing_logs():
+    current_time = datetime.now().strftime('%Y%m%d_%H%M%S')
+    log_files = ['app.log', 'timed_app.log']
+    
+    for log_file in log_files:
+        log_path = os.path.join(LOGS_DIR, log_file)
+        if os.path.exists(log_path) and os.path.getsize(log_path) > 0:
+            backup_path = os.path.join(LOGS_DIR, f'{log_file}.backup_{current_time}')
+            try:
+                os.rename(log_path, backup_path)
+            except Exception as e:
+                print(f"Failed to backup {log_file}: {e}")
+
+# 执行日志备份
+backup_existing_logs()
+
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,  # 是否禁用 Django 默认的日志配置
-    'formatters': {  # 定义日志格式
-        'verbose': {  # 详细格式
-            'format': '{levelname} {asctime} {module} {message}',
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
             'style': '{',
         },
-        'simple': {  # 简洁格式
-            'format': '{levelname} {message}',
+        'simple': {
+            'format': '{levelname} {asctime} {message}',
             'style': '{',
         },
     },
-    'handlers': {  # 定义日志处理方式
-        'console': {  # 控制台输出
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
-        'file': {  # 文件输出，带文件大小限制
+        'file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/app.log'),  # 日志文件路径
+            'filename': os.path.join(LOGS_DIR, 'app.log'),
             'formatter': 'verbose',
-            'maxBytes': 5 * 1024 * 1024,  # 单个文件最大 5 MB
-            'backupCount': 5,  # 保留最近 5 个日志文件
+            'maxBytes': 10 * 1024 * 1024,  # 10 MB
+            'backupCount': 10,
         },
-        'file_timed': {  # 文件输出，按天轮换
+        'file_timed': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/timed_app.log'),  # 定时轮换日志
+            'filename': os.path.join(LOGS_DIR, 'timed_app.log'),
             'formatter': 'verbose',
-            'when': 'midnight',  # 每天午夜轮换
-            'interval': 1,  # 每 1 天
-            'backupCount': 7,  # 保留最近 7 天的日志
+            'when': 'midnight',
+            'interval': 1,
+            'backupCount': 30,  # 保留30天
+        },
+        'error_file': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_DIR, 'error.log'),
+            'formatter': 'verbose',
+            'maxBytes': 5 * 1024 * 1024,  # 5 MB
+            'backupCount': 5,
         },
     },
-    'loggers': {  # 定义日志记录器
-        'django': {  # Django 框架日志
+    'loggers': {
+        'django': {
             'handlers': ['console', 'file'],
             'level': 'INFO',
-            'propagate': True,  # 是否传递到父 logger
+            'propagate': True,
         },
-        'custom_logger': {  # 自定义日志
-            'handlers': ['console', 'file_timed'],  # 输出到控制台和按天轮换的日志文件
+        'custom_logger': {
+            'handlers': ['console', 'file_timed'],
             'level': 'INFO',
             'propagate': False,
         },
+        'error_logger': {
+            'handlers': ['console', 'error_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        # 减少第三方库的日志输出
+        'urllib3.connectionpool': {
+            'level': 'WARNING',
+        },
+        'requests.packages.urllib3': {
+            'level': 'WARNING',
+        },
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console', 'file'],
     },
 }
 
@@ -221,8 +273,8 @@ MIDDLEWARE += [
 ]
 
 # Celery 配置
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'  # 使用容器内的 redis 服务名
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
